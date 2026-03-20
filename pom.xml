@@ -1,4 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.music</groupId>
@@ -9,27 +13,40 @@
   <build>
     <plugins>
 
+      <!-- React build using Node -->
       <plugin>
         <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
         <version>1.12.0</version>
+
+        <configuration>
+          <nodeVersion>v18.0.0</nodeVersion>
+        </configuration>
+
         <executions>
 
           <execution>
+            <id>install-node-and-npm</id>
             <goals>
               <goal>install-node-and-npm</goal>
             </goals>
           </execution>
 
           <execution>
-            <goals><goal>npm</goal></goals>
+            <id>npm-install</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
             <configuration>
               <arguments>install</arguments>
             </configuration>
           </execution>
 
           <execution>
-            <goals><goal>npm</goal></goals>
+            <id>npm-build</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
             <configuration>
               <arguments>run build</arguments>
             </configuration>
@@ -38,6 +55,7 @@
         </executions>
       </plugin>
 
+      <!-- Package React build into WAR -->
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.3.2</version>
@@ -48,4 +66,5 @@
 
     </plugins>
   </build>
+
 </project>
