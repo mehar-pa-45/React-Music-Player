@@ -13,7 +13,7 @@ pipeline {
         DOCKER_CREDS   = "Docker_CRED"
 
         CONTAINER_NAME = "music-player-container"
-        HOST_PORT      = "8081"
+        HOST_PORT      = "8083"
         CONTAINER_PORT = "8080"
     }
 
