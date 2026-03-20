@@ -1,21 +1,22 @@
-# -------- Stage 1 : Build --------
-FROM maven:3.9.6-eclipse-temurin-17 AS builder
+# -------- Stage 1 : Build React --------
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-COPY pom.xml .
+COPY package.json package-lock.json ./
+RUN npm install
+
 COPY . .
+RUN npm run build
 
-RUN mvn package -DskipTests
 
-
-# -------- Stage 2 : Run --------
+# -------- Stage 2 : Serve with Nginx --------
 FROM nginx:alpine
 
 RUN rm -rf /usr/share/nginx/html/*
 
-COPY --from=builder /app/target/*.war /usr/share/nginx/html/
+COPY --from=builder /app/build /usr/share/nginx/html
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
