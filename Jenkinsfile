@@ -14,7 +14,7 @@ pipeline {
 
         CONTAINER_NAME = "music-player-container"
         HOST_PORT      = "8083"
-        CONTAINER_PORT = "8080"
+        CONTAINER_PORT = "80"
     }
 
     stages {
